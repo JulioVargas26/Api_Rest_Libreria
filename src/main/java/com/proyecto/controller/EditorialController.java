@@ -29,13 +29,13 @@ public class EditorialController {
 	@Autowired
 	private EditorialService service;
 	
-	@GetMapping
+	@GetMapping("/lista")
 	public List<Editorial> listaEditorial(){
 		List<Editorial> lstSalida = service.listaEditorial();
 		return lstSalida;
 	}
 
-	@GetMapping("/{razon}")
+	@GetMapping("/razonsocial/{razon}")
 	public ResponseEntity<List<Editorial>> listaEditorialPorRazon(@PathVariable("razon") String razon){
 		List<Editorial> listaEditorial = null;
 		try {
@@ -51,7 +51,7 @@ public class EditorialController {
 		
 	}
 	
-	@GetMapping("/PorParametros")
+	@GetMapping("/parametros")
 	public List<Editorial> listaDinamica(@RequestParam(name = "razonsocial", required = false, defaultValue = "") String razonsocial,
 										 @RequestParam(name = "direccion", required = false, defaultValue = "") String direccion,
 										 @RequestParam(name = "ruc", required = false, defaultValue = "") String ruc,
@@ -61,7 +61,7 @@ public class EditorialController {
 		return lista;
 	}
 	
-	@PostMapping
+	@PostMapping("/registrar")
 	public ResponseEntity<Map<String, Object>> registraEditorial(@RequestBody Editorial obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -84,12 +84,12 @@ public class EditorialController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@PutMapping
+	@PutMapping("/actualizar")
 	public ResponseEntity<Map<String, Object>> actualizaEditorial(@RequestBody Editorial obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			//Seteando valores por defecto
-			obj.getFecharegistro();
+			obj.setFecharegistro(new Date());
 			obj.setFechaactualizacion(new Date());
 			Editorial objSalida = service.insertaActualizaEditorial(obj);
 			
@@ -105,7 +105,7 @@ public class EditorialController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<Map<String, Object>> eliminaEditorial(@PathVariable("id")int ideditorial){
 		Map<String, Object> salida = new HashMap<>();
 		try {
