@@ -8,49 +8,43 @@ import org.springframework.stereotype.Service;
 import com.proyecto.entity.Autor;
 import com.proyecto.repository.AutorRepository;
 
-@Service
+@Service 
 public class AutorServiceImpl implements AutorService {
 
 	@Autowired
-	private AutorRepository serAutor;
+	private AutorRepository repo;
 
 	@Override
-	public List<Autor> listAll() {
-		return serAutor.findAll();
+	public Autor registraActualizaAutor(Autor a) {
+		return repo.save(a);
+	}
+	
+	@Override
+	public List<Autor> listaAutor() {
+		return repo.findAll();
 	}
 
 	@Override
-	public Autor registrar(Autor a) {
-		return serAutor.save(a);
-	}
-
-	@Override
-	public Autor actualizar(Autor a) {
-		return serAutor.save(a);
-	}
-
-	@Override
-	public List<Autor> buscarNombreLike(String nombre) {
-		return serAutor.listaPorNombreLike(nombre);
-	}
-
-	@Override
-	public void eliminar(int id) {
-		Autor a = new Autor();
-		a = serAutor.findById(id).orElse(null);
+	public void eliminarAutor(int id) {
+		Autor a = repo.findById(id).orElse(null);
 		if (a != null) {
-			serAutor.delete(a);
+			repo.delete(a);
 		}
 	}
 
 	@Override
 	public Autor buscarPorId(int id) {
-		return serAutor.findById(id).orElse(null);
+		return repo.findById(id).orElse(null);
+	}
+	
+	@Override
+	public List<Autor> listaAutorPorNombre(String nombre) {
+		return repo.listaPorNombreLike(nombre);
 	}
 
 	@Override
-	public List<Autor> buscarAutores(String nombre, String apellido, String pais, String estado) {
-		return serAutor.buscarAutor(nombre, apellido, pais, estado);
+	public List<Autor> listaDinamica(String nombre, String apellido, int estado) {
+		return repo.listaConsultaDinamica(nombre, apellido, estado);
 	}
 
 }

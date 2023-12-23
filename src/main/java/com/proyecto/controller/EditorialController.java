@@ -25,7 +25,6 @@ import com.proyecto.util.AppSettings;
 @RequestMapping("/url/editorial")
 public class EditorialController {
 
-
 	@Autowired
 	private EditorialService service;
 	
@@ -70,7 +69,7 @@ public class EditorialController {
 			obj.setFechaactualizacion(new Date());
 			obj.setEstado(AppSettings.ACTIVO);
 				
-			Editorial objSalida = service.insertaActualizaEditorial(obj);
+			Editorial objSalida = service.registraActualizaEditorial(obj);
 			
 			if(objSalida == null) {
 				salida.put("mensaje", "Error en el registro");
@@ -89,9 +88,8 @@ public class EditorialController {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			//Seteando valores por defecto
-			obj.setFecharegistro(new Date());
 			obj.setFechaactualizacion(new Date());
-			Editorial objSalida = service.insertaActualizaEditorial(obj);
+			Editorial objSalida = service.registraActualizaEditorial(obj);
 			
 			if(objSalida == null) {
 				salida.put("mensaje", "Error en la actualización");
