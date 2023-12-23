@@ -32,7 +32,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `app_Libreria`;
-INSERT INTO tb_editorial (direccion, estado, fechaactualizacion, fechacreacion, fecharegistro, razonsocial, ruc, idpais) VALUES ('AV. ELIAS AGUIRRE NRO. 971 INT. 3', '0', '2023-12-20', '1974-04-01', '2023-12-20', 'EDITORIAL PLANETA S.R.LTDA', '20136031466', '174');
+INSERT INTO tb_editorial (direccion, estado, fechaactualizacion, fechacreacion, fecharegistro, razonsocial, ruc, idpais, imglogo) VALUES ('AV. ELIAS AGUIRRE NRO. 971 INT. 3', '1', '2023-12-20', '1974-04-01', '2023-12-20', 'EDITORIAL PLANETA S.R.LTDA', '20136031466', '174','https://i.postimg.cc/5y51yTNT/logo-PLANETA.jpg');
 
 COMMIT;
 
