@@ -12,37 +12,45 @@ import com.proyecto.repository.EditorialRepository;
 public class EditorialServiceImpl implements EditorialService {
 
 	@Autowired
-	private EditorialRepository repositorio;
+	private EditorialRepository repo;
 
 	@Override
-	public Editorial insertaActualizaEditorial(Editorial obj) {
-		return repositorio.save(obj);
+	public Editorial registraActualizaEditorial(Editorial obj) {
+		return repo.save(obj);
 	}
 
 	@Override
 	public List<Editorial> listaEditorial() {
-		return repositorio.findAll();
+		return repo.findAll();
 	}
 
 	@Override
 	public void eliminaEditorial(int ideditorial) {
-		repositorio.deleteById(ideditorial);
+		Editorial e = repo.findById(ideditorial).orElse(null);
+		if (e != null) {
+			repo.delete(e);
+		}
 	}
 
 	@Override
+	public Editorial buscarPorId(int ideditorial) {
+		return repo.findById(ideditorial).orElse(null);
+	}
+	
+	@Override
 	public List<Editorial> listaEditorialPorRazon(String razon) {
-		return repositorio.listaPorRazSocLike(razon);
+		return repo.listaPorRazSocLike(razon);
 	}
 
 	@Override
 	public List<Editorial> listaDinamica(String razonsocial, String direccion, String ruc, int estado) {
-		return repositorio.listaConsultaDinamica(razonsocial, direccion, ruc, estado);
+		return repo.listaConsultaDinamica(razonsocial, direccion, ruc, estado);
 	}
 
 	@Override
 	public List<Editorial> listaDinamicaMejorada(String razonsocial, String direccion, String ruc, int estado) {
 		// TODO Auto-generated method stub
-		return repositorio.listaConsultaDinamicaMejorada(razonsocial, direccion, ruc, estado);
+		return repo.listaConsultaDinamicaMejorada(razonsocial, direccion, ruc, estado);
 	}
 	
 }

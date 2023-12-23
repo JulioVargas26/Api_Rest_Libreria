@@ -51,4 +51,6 @@ public class Editorial {
 	@JoinColumn(name = "idpais")
 	private Pais pais;
 	
+	private String imglogo;
+	
 }

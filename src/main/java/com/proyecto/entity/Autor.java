@@ -54,4 +54,6 @@ public class Autor {
 	@JoinColumn(name = "idpais")
 	private Pais pais;
 	
+	private String imgfoto;
+	
 }
