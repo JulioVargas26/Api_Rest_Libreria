@@ -22,19 +22,19 @@ import com.proyecto.service.EditorialService;
 import com.proyecto.util.AppSettings;
 
 @RestController
-@RequestMapping("/url/editorial")
+@RequestMapping("/editorial")
 public class EditorialController {
 
 	@Autowired
 	private EditorialService service;
 	
-	@GetMapping("/lista")
+	@GetMapping
 	public List<Editorial> listaEditorial(){
 		List<Editorial> lstSalida = service.listaEditorial();
 		return lstSalida;
 	}
 
-	@GetMapping("/razonsocial/{razon}")
+	@GetMapping("/{razon}")
 	public ResponseEntity<List<Editorial>> listaEditorialPorRazon(@PathVariable("razon") String razon){
 		List<Editorial> listaEditorial = null;
 		try {
@@ -50,7 +50,7 @@ public class EditorialController {
 		
 	}
 	
-	@GetMapping("/parametros")
+	@GetMapping("/param")
 	public List<Editorial> listaDinamica(@RequestParam(name = "razonsocial", required = false, defaultValue = "") String razonsocial,
 										 @RequestParam(name = "direccion", required = false, defaultValue = "") String direccion,
 										 @RequestParam(name = "ruc", required = false, defaultValue = "") String ruc,
@@ -60,7 +60,7 @@ public class EditorialController {
 		return lista;
 	}
 	
-	@PostMapping("/registrar")
+	@PostMapping
 	public ResponseEntity<Map<String, Object>> registraEditorial(@RequestBody Editorial obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -83,7 +83,7 @@ public class EditorialController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@PutMapping("/actualizar")
+	@PutMapping
 	public ResponseEntity<Map<String, Object>> actualizaEditorial(@RequestBody Editorial obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -103,7 +103,7 @@ public class EditorialController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("/eliminar/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Map<String, Object>> eliminaEditorial(@PathVariable("id")int ideditorial){
 		Map<String, Object> salida = new HashMap<>();
 		try {

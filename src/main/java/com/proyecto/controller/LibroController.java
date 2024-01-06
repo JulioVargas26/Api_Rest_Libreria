@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.entity.Libro;
@@ -22,26 +21,26 @@ import com.proyecto.service.LibroService;
 import com.proyecto.util.AppSettings;
 
 @RestController
-@RequestMapping("/url/libro")
+@RequestMapping("/libro")
 public class LibroController {
 
 	@Autowired
 	private LibroService service;
 	
-	@GetMapping("/lista")
+	@GetMapping
 	public List<Libro> listaLibro(){
 		List<Libro> lstSalida = service.listaLibro();
 		return lstSalida;
 	}
 
-	/*@GetMapping("/razonsocial/{razon}")
-	public ResponseEntity<List<Libro>> listaLibroPorRazon(@PathVariable("razon") String razon){
+	@GetMapping("/{titulo}")
+	public ResponseEntity<List<Libro>> listaLibroPorRazon(@PathVariable("titulo") String titulo){
 		List<Libro> listaLibro = null;
 		try {
-			if(razon.equals("todos")) {
-				listaLibro = service.listaLibroPorRazon("%");
+			if(titulo.equals("todos")) {
+				listaLibro = service.listaLibroPorTitulo("%");
 			}else {
-				listaLibro = service.listaLibroPorRazon("%" + razon + "%");
+				listaLibro = service.listaLibroPorTitulo("%" + titulo + "%");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,7 +49,7 @@ public class LibroController {
 		
 	}
 	
-	@GetMapping("/parametros")
+	/*@GetMapping("/parametros")
 	public List<Libro> listaDinamica(@RequestParam(name = "razonsocial", required = false, defaultValue = "") String razonsocial,
 										 @RequestParam(name = "direccion", required = false, defaultValue = "") String direccion,
 										 @RequestParam(name = "ruc", required = false, defaultValue = "") String ruc,
@@ -60,7 +59,7 @@ public class LibroController {
 		return lista;
 	}
 	*/
-	@PostMapping("/registrar")
+	@PostMapping
 	public ResponseEntity<Map<String, Object>> registraLibro(@RequestBody Libro obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -83,7 +82,7 @@ public class LibroController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@PutMapping("/actualizar")
+	@PutMapping
 	public ResponseEntity<Map<String, Object>> actualizaLibro(@RequestBody Libro obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -103,7 +102,7 @@ public class LibroController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("/eliminar/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Map<String, Object>> eliminaLibro(@PathVariable("id")int idLibro){
 		Map<String, Object> salida = new HashMap<>();
 		try {

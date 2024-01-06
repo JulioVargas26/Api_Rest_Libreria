@@ -37,4 +37,10 @@ public class LibroServiceImpl implements LibroService{
 		return repo.findById(idlibro).orElse(null);
 	}
 
+	@Override
+	public List<Libro> listaLibroPorTitulo(String titulo) {
+		return repo.listaPorTituloLike(titulo);
+	}
+	
+
 }

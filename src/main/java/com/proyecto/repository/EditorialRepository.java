@@ -9,8 +9,13 @@ import com.proyecto.entity.Editorial;
 
 public interface EditorialRepository extends JpaRepository<Editorial, Integer>{
 	
-	@Query("select e from Editorial e where e.razonsocial like?1")
-	public List<Editorial> listaPorRazSocLike(String razon);
+	//@Query("select e from Editorial e where e.razonsocial like?1")
+	//public List<Editorial> listaPorRazSocLike(String razon);
+	
+	@Query("SELECT e FROM Editorial e WHERE " +
+	        "(UPPER(e.razonsocial) LIKE UPPER(COALESCE(?1, '')))")
+	public List<Editorial> listaPorRazSocLike(String razonsocial);
+	
 	
 	@Query("SELECT e from Editorial e where (e.razonsocial like?1) and"
 			+ "(?2 = '' or e.direccion =?2) and "
@@ -27,4 +32,8 @@ public interface EditorialRepository extends JpaRepository<Editorial, Integer>{
 	public List<Editorial> listaConsultaDinamicaMejorada(String razonsocial, String direccion, String ruc, int estado);
 
 
+	//@Query("select e from Editorial e where e.razonsocial like?1")
+	//public List<Editorial> listaImgPorId(int id);
+	
+	
 }

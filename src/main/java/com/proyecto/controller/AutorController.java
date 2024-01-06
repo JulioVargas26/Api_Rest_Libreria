@@ -22,19 +22,19 @@ import com.proyecto.service.AutorService;
 import com.proyecto.util.AppSettings;
 
 @RestController
-@RequestMapping("/url/autor")
+@RequestMapping("/autor")
 public class AutorController {
 
 	@Autowired
 	private AutorService service;
 	
-	@GetMapping("/lista")
+	@GetMapping
 	public List<Autor> listaAutor(){
 		List<Autor> lstSalida = service.listaAutor();
 		return lstSalida;
 	}
 
-	@GetMapping("/nombre/{nombre}")
+	@GetMapping("/{nombre}")
 	public ResponseEntity<List<Autor>> listaAutorPorNombre(@PathVariable("nombre") String nombre){
 		List<Autor> listaAutor = null;
 		try {
@@ -50,7 +50,7 @@ public class AutorController {
 		
 	}
 	
-	@GetMapping("/parametros")
+	@GetMapping("/param")
 	public List<Autor> listaDinamica(@RequestParam(name = "nom", required = false, defaultValue = "") String nombre,
 										 @RequestParam(name = "ape", required = false, defaultValue = "") String apellido,
 										 @RequestParam(name = "estado", required = true, defaultValue = "1") int estado){
@@ -59,7 +59,7 @@ public class AutorController {
 		return lista;
 	}
 	
-	@PostMapping("/registrar")
+	@PostMapping
 	public ResponseEntity<Map<String, Object>> registraAutor(@RequestBody Autor obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -82,7 +82,7 @@ public class AutorController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@PutMapping("/actualizar")
+	@PutMapping
 	public ResponseEntity<Map<String, Object>> actualizaAutor(@RequestBody Autor obj){
 		Map<String, Object> salida = new HashMap<>();
 		try {
@@ -102,7 +102,7 @@ public class AutorController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("/eliminar/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Map<String, Object>> eliminaAutor(@PathVariable("id")int idAutor){
 		Map<String, Object> salida = new HashMap<>();
 		try {
